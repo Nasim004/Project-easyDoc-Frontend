@@ -44,6 +44,15 @@ export const LoginPageRenderHospital = () => {
 
 }
 
+export const RequireAuthLoginUser = () => {
+    const token = Cookies.get('jwt_user')
+    return (
+        token
+            ? <Outlet />
+            : <Navigate to='/login' />
+    )
+}
+
 
 
 

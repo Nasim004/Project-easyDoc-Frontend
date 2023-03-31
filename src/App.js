@@ -3,12 +3,13 @@ import './App.css';
 import HomePage from './pages/Home'
 import UserSignup from './pages/UserSignup';
 import UserLogin from './pages/UserLogin';
+import UserProfile from './pages/UserProfile';
+import Hospitals from './pages/HospitalList';
 
 
 import HospitalSignup from './pages/HospitalSignup';
 import HospitalLogin from './pages/HospitalLogin';
 import HospitalPanel from './pages/HospitalPanel';
-import HospitalDepartment from './pages/DepartmentHospital'
 import HospitalDoctor from './pages/DoctorHospital'
 
 
@@ -19,9 +20,10 @@ import AdminDepartment from './pages/AdminDepartment';
 import AdminUser from './pages/AdminUser'
 
 
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { RequireAuthLogin, LoginPageRender, RequireAuthLoginHospital, LoginPageRenderHospital } from './utils/RequireAuthAdminLogin';
+import { RequireAuthLogin, LoginPageRender, RequireAuthLoginHospital, LoginPageRenderHospital, RequireAuthLoginUser } from './utils/RequireAuthAdminLogin';
 
 
 
@@ -32,10 +34,13 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<HomePage />} />
-
-
           <Route path='signup' element={<UserSignup />} />
           <Route path='login' element={<UserLogin />} />
+          <Route path='hospitals' element={<Hospitals />} />
+
+          <Route element={<RequireAuthLoginUser />}>
+            <Route path='myprofile' element={<UserProfile />} />
+          </Route>
 
           <Route element={<LoginPageRenderHospital />}>
             <Route path='hospital/login' element={<HospitalLogin />} />
@@ -45,7 +50,6 @@ function App() {
 
           <Route element={<RequireAuthLoginHospital />} >
             <Route path='hospital/panel' element={<HospitalPanel />} />
-            <Route path='hospital/department' element={<HospitalDepartment />} />
             <Route path='hospital/doctor' element={<HospitalDoctor />} />
           </Route>
 
@@ -59,7 +63,7 @@ function App() {
             <Route path='admin/department' element={<AdminDepartment />} />
             <Route path='admin/user' element={<AdminUser />} />
           </Route>
-          
+
         </Routes>
       </Router>
     </div>

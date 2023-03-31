@@ -37,27 +37,19 @@ function HospitalLogin() {
       })
       .then((response) => {
         if (
-          response.data.status === "Wrong Password" ||
-          response.data.status === "wrong Username"
+          response.data == "Authentication Failed"
         ) {
           Swal.fire({
             position: "center",
             icon: "error",
-            title: "Email or Password is incorrect",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }else if (response.data.status === "Account is not approved"){
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Account is not Approved by Admin",
+            title: "Authentication Failed",
             showConfirmButton: false,
             timer: 1500,
           });
         }else{
           Cookies.set('jwt-hospital',String(response.data.jwt))
           Cookies.set('role',String(response.data.role))
+          Cookies.set('hospital_id',String(response.data.id))
           dispatch(change(response.data.payload.username));
           navigate("/hospital/panel");
         }

@@ -1,22 +1,18 @@
-import Carousel from 'react-bootstrap/Carousel';
-import "./homeBanner.css"
+import React from "react";
+import { MDBCarousel, MDBCarouselItem } from "mdb-react-ui-kit";
 
 function HomeBanner() {
   return (
-    <Carousel>
-      <Carousel.Item>
-        <img
-          className="Banner w-100" src="../../../Images/Banner.webp" alt="First slide"/>
-            <div className="carousel-caption d-none d-md-block">
-                <h5 className='slideHeading'>We Care For You Most&#10084;</h5>
-            </div>
-      </Carousel.Item>
-    </Carousel>
+<MDBCarousel showControls dealy={3000}>
+      <MDBCarouselItem
+        className='w-100 d-block'
+        itemId={1}
+        src='../../../Images/banner.png'
+        alt='...'
+        style={{height:"400px"}}
+      />
+    </MDBCarousel>
   );
 }
 
 export default HomeBanner;
-
-
-
-

@@ -2,9 +2,9 @@ import axios from "../../../utils/axios";
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
-import { adminUser,blockUser } from "../../../utils/Constants";
+import { adminUser, blockUser } from "../../../utils/Constants";
 import Swal from "sweetalert2";
-
+import Switch from "@material-ui/core/Switch";
 
 
 function UserList() {
@@ -20,15 +20,16 @@ function UserList() {
     });
   };
 
-  const user_block = (id) =>{
-    axios.put(`${blockUser}/${id}`)
-    .then((response)=>{
+  const user_block = (id) => {
+    axios
+      .put(`${blockUser}/${id}`)
+      .then((response) => {
         getUserList();
-        Swal.fire("Updated")
-    })
-    .catch((e)=>{
+        Swal.fire("Updated");
+      })
+      .catch((e) => {
         console.log("error");
-    });
+      });
   };
 
   return (
@@ -49,22 +50,25 @@ function UserList() {
             <tbody>
               {user.map((user, index) => (
                 <tr>
-                  <td>{user.id}</td>
-
+                  <td>{user.index}</td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>{user.phone}</td>
-                  <td>{user.is_active?"True":"False"}</td>
+                  <td>{user.is_active ? "True" : "False"}</td>
                   <td>
-                    <Dropdown>
-                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        value here
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        <Dropdown.Item onClick={()=>user_block(user.id)}>Block</Dropdown.Item>
-                        <Dropdown.Item onClick={()=>user_block(user.id)}>UnBlock</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
+                    {user.is_active ? (
+                      <Switch
+                        onClick={() => user_block(user.id)}
+                        defaultChecked
+                        color="default"
+                      />
+                    ) : (
+                      <Switch
+                        onClick={() => user_block(user.id)}
+                        defaultUnChecked
+                        color="default"
+                      />
+                    )}
                   </td>
                 </tr>
               ))}

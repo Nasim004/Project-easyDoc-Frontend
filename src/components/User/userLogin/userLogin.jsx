@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "../../../utils/axios";
 import { useDispatch } from "react-redux";
 import { change } from "../../../Redux/emailReducer";
@@ -17,7 +18,6 @@ import {
   MDBIcon,
 } from "mdb-react-ui-kit";
 import { userLogin } from "../../../utils/Constants";
-import { useNavigate } from "react-router-dom";
 
 function UserLogin() {
   const [email, setEmail] = useState("");
@@ -49,7 +49,8 @@ function UserLogin() {
           });
         } else {
           Cookies.set("jwt_user", String(response.data.jwt));
-          Cookies.set("role",String(response.data.role))
+          Cookies.set("role", String(response.data.role));
+          Cookies.set("id", String(response.data.id));
           Swal.fire({
             position: "center",
             icon: "success",
@@ -59,7 +60,6 @@ function UserLogin() {
           });
           dispatch(change(response.data.payload.email));
           navigate("/");
-          
         }
       });
   };

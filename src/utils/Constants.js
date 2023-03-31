@@ -5,24 +5,32 @@ export const baseUrl = "http://localhost:8000/";
 
 
 // User
-export const userSignup = "signup";
-export const userLogin = "login";
-export const userLogout = "logout";
-export const verifyToken ="verifyToken";
+export const userSignup = "signup"
+export const userLogin = "login"
+export const userLogout = "logout"
+export const verifyToken ="verifyToken"
+export const userDetail ="myprofile"
+export const userprofileUpdate="profileupdate"
+export const changepassword ="changepassword"
+export const randomhospitals ='randomhospital'
+export const userhospital ='userhospital'
 
 // Hospital
+export const hospitalDashboard = 'hospital'
 export const hospitalSignup = "hospital/signup"
 export const hospitalLogin = "hospital/login"
 export const hospitalDepartmentAdd = "hospital/department_add"
 export const hospitalDepartment = "hospital/department_details"
-export const hospitalDoctorAdd = "hospital/doctor_add"
-export const hospitalDoctor = "hospital/doctor_details"
-export const hospitalDoctorDelete = "hospital/doctor_delete"
+export const addDoctor = "hospital/doctor_add"
+export const doctorlist = "hospital/doctor"
+export const doctorAvailable = "hospital/doctor_available"
+
+
 
 
 
 //Admin
-
+export const adminDashboard = 'admin/'
 export const adminLogin = "admin/login"
 export const adminHospital = "admin/hospital"
 export const approveHospital = "admin/hospital_approval"

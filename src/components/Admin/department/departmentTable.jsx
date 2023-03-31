@@ -41,7 +41,7 @@ function DepartmentList() {
       .then((response) => {
         Swal.fire("Department Added");
         getDepartmentList();
-        navigate("");
+        // navigate("");
       })
       .catch((err) => {
         Swal.fire(Response.status);

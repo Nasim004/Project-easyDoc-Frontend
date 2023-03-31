@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import "./header.css";
-import { FaUser, FaBuilding, FaHospitalUser } from "react-icons/fa";
+import { FaUser, FaBuilding, FaHospitalUser,FaBell } from "react-icons/fa";
 import { Link, useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
 import React, { useState, useEffect } from 'react';
@@ -26,7 +26,7 @@ function Header() {
   return (
     <Navbar className="navbar">
       <Container>
-        <Navbar.Brand className="easydoc" href="#home">
+        <Navbar.Brand className="easydoc" href="/admin/panel">
           easyDoc Admin Panel
         </Navbar.Brand>
         <Navbar.Toggle />
@@ -38,9 +38,9 @@ function Header() {
                 Hospitals
               </Button>
             </Link>
-            <Button variant="outline-dark m-3">
+            {/* <Button variant="outline-dark m-3">
               <FaHospitalUser /> Doctors
-            </Button>
+            </Button> */}
             <Link to="/admin/department" className="department">
               <Button variant="outline-dark m-3">
                 <FaHospitalUser /> Departments
@@ -49,6 +49,12 @@ function Header() {
             <Link to="/admin/user">
               <Button variant="outline-dark m-3">
                 <FaUser /> Users
+              </Button>
+            </Link>
+
+            <Link>
+              <Button variant="outline-dark m-3">
+                <FaBell /> Notification
               </Button>
             </Link>
 

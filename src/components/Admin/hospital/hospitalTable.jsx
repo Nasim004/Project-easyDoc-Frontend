@@ -1,9 +1,9 @@
 import axios from "../../../utils/axios";
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
-import Dropdown from "react-bootstrap/Dropdown";
 import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Switch from "@material-ui/core/Switch";
 import {
   adminHospital,
   approveHospital,
@@ -87,21 +87,21 @@ function HospitalList() {
                   <td>{hos.admin_name}</td>
                   <td>{hos.username}</td>
                   <td>{hos.phone}</td>
-                  <td>{hos.is_approved?"True":"False"}</td>
+                  <td>{hos.is_approved ? "True" : "False"}</td>
                   <td>
-                    <Dropdown>
-                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      {hos.is_approved?"Disapprove":"Approve"}
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        <Dropdown.Item
-                          onClick={() => hospital_approval(hos.id)}
-                        >
-                          Approve
-                        </Dropdown.Item>
-                        <Dropdown.Item>Disapprove</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
+                    {hos.is_approved ? (
+                      <Switch
+                        onClick={() => hospital_approval(hos.id)}
+                        defaultChecked
+                        color="default"
+                      />
+                    ) : (
+                      <Switch
+                        onClick={() => hospital_approval(hos.id)}
+                        defaultUnChecked
+                        color="default"
+                      />
+                    )}
                   </td>
 
                   <td>

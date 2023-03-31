@@ -7,6 +7,7 @@ const AdminDepartment=()=>{
         <div>
             <Header />
             <Department />
+            
         </div>
     )
 }

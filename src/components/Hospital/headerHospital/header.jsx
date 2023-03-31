@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
@@ -9,12 +9,19 @@ import Cookies from "js-cookie";
 
 function Header() {
   const navigate = useNavigate();
-  const logout = () => {
-    Cookies.remove("jwt-hospital");
-    Cookies.remove("role", "hospital");
-    navigate("/hospital/login");
-  };
+  const [logout,setLogout]=useState(false);
 
+  useEffect(()=>{
+    if(logout){
+      Cookies.remove("jwt-hospital");
+      Cookies.remove("role")
+      Cookies.remove("hospital_id")
+      navigate("/hospital/login")
+    }
+  },[logout,navigate]);
+  const handleLogout=()=>{
+    setLogout(true);
+  }
   return (
     <Navbar className="navbar">
       <Container>
@@ -26,11 +33,6 @@ function Header() {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-">
           <Navbar.Text className="justify-content-around">
-            <Button variant="outline-dark m-3">
-              <Link to="/hospital/department">
-                <FaBuilding /> Departments
-              </Link>
-            </Button>
             <Button variant="outline-dark m-3 ">
               <Link to="/hospital/doctor">
                 <FaBuilding /> Doctors
@@ -40,7 +42,7 @@ function Header() {
               <FaBook /> Bookings
             </Button>
             <Button variant="outline-dark m-3">
-              <Link className="logout" onClick={logout}>
+              <Link className="logout" onClick={handleLogout}>
                 Logout
               </Link>
             </Button>

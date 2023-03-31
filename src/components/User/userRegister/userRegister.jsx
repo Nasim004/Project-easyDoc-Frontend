@@ -15,7 +15,6 @@ import { userSignup } from "../../../utils/Constants";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../utils/axios";
 import "./userRegister.css";
-import swal from 'sweetalert2';
 
 function UserSignup() {
   const [name, setName] = useState("");
@@ -33,13 +32,10 @@ function UserSignup() {
 
 
 
+
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    if ((name.length !== 3) &&  (email.length !==3) && (muncipality.length !==3) && (district.length !==3) && (password.length !==5))  {
-      swal("Please Fill All Details"); 
-    }
-    else{
       const data = JSON.stringify({
         name,
         email,
@@ -57,7 +53,7 @@ function UserSignup() {
           console.log(response.status);
           navigate("/login");
         });
-    }
+    
   };
 
   const handleNameChange = (e) => {
@@ -102,10 +98,11 @@ function UserSignup() {
       setMuncipalityError("");
     }
   };
+
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    if (!/^(?=(.*[a-zA-Z]){1,})(?=(.*[0-9]){2,}).{5}$/.test(e.target.value)) {
-      setPasswordError("Password length must contains 5 letters and 2 digits");
+    if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/.test(e.target.value)) {
+      setPasswordError("Password length must contains 5 letters and 1 number ");
     } else {
       setPasswordError("");
     }
@@ -113,7 +110,7 @@ function UserSignup() {
 
   return (
     <MDBContainer fluid>
-      <form onSubmit={handleSubmit}>
+      <form >
         <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
           <MDBCardBody>
             <MDBRow>
@@ -193,7 +190,7 @@ function UserSignup() {
                 </div>
                 <span className="text-danger">{passwordError}</span>
 
-                <MDBBtn className="mb-4" size="lg">
+                <MDBBtn className="mb-4" size="lg" onClick={handleSubmit}>
                   Register
                 </MDBBtn>
               </MDBCol>
