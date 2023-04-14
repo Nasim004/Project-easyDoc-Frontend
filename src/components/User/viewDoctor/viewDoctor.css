@@ -1,0 +1,26 @@
+.card-texts {
+    text-align: left !important;
+  }
+
+  .img-right{
+    float: right !important;
+  }
+
+
+  .text-center{
+    text-align: center !important;
+
+  }
+
+
+.text-left{
+    text-align: start;
+}
+
+.text-details{
+    font-size: 15px;
+}
+
+.font-weight-bold {
+  font-weight: bold !important;
+}

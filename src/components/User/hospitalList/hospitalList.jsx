@@ -4,6 +4,7 @@ import { GoLocation } from "react-icons/go";
 import axios from "../../../utils/axios";
 import { userhospital } from "../../../utils/Constants";
 import { useState } from "react";
+import { Link,useNavigate } from "react-router-dom";
 import {
   CCard,
   CRow,
@@ -16,6 +17,8 @@ import {
 
 export default function HospitalList() {
   const [hospital, setHospital] = useState([]);
+  const navigate = useNavigate();
+
 
   const getHospitals = () => {
     axios.get(userhospital).then((response) => {
@@ -63,8 +66,9 @@ export default function HospitalList() {
                             <button
                               type="button"
                               className="btn btn-md btn-secondary active btn-block"
+                              onClick={()=>navigate(`/doctors/${hos.id}`)}
                             >
-                              Book an Appoitment
+                              View Doctors
                             </button>
                           </CCardText>
                         </CCardBody>

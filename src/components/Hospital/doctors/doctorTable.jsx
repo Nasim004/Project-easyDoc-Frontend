@@ -1,6 +1,4 @@
 import { Table, Form, Button } from "react-bootstrap";
-import { FaEdit, FaTrash } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useEffect, useState } from "react";
 import axios from "../../../utils/axios";
@@ -15,6 +13,7 @@ import {
   doctorlist,
   doctorAvailable,
 } from "../../../utils/Constants";
+import Switch from "@material-ui/core/Switch";
 
 function DoctorsList() {
   const [show, setShow] = useState(false);
@@ -26,14 +25,17 @@ function DoctorsList() {
   const [doctor, setDoctor] = useState([]);
   const [department_id, setDepartmentId] = useState("");
   const [tokens, setTokens] = useState("");
+  const [fee,setFee] = useState("");
   const [departments, setDepartments] = useState([]);
 
   const hospital_id = Cookies.get("hospital_id");
 
   const addAndclose = () => {
+
     doctor_add();
-    handleClose();
     DoctorList();
+    handleClose();
+
   };
 
   const doctor_add = (e) => {
@@ -43,6 +45,7 @@ function DoctorsList() {
       tokens,
       hospital_id,
       department_id,
+      fee,
     });
     axios
       .post(addDoctor, data, {
@@ -79,14 +82,12 @@ function DoctorsList() {
     return department ? department.name : "Unknown";
   };
 
-
-  const doctorAvailablity = (id)=>{
-    axios.put(`${doctorAvailable}/${id}`)
-    .then((response)=>{
+  const doctorAvailablity = (id) => {
+    axios.put(`${doctorAvailable}/${id}`).then((response) => {
       DoctorList();
-      Swal.fire("Updated")
-    })
-  }
+      Swal.fire("Updated");
+    });
+  };
 
   return (
     <div className="container-fluid m-5">
@@ -106,6 +107,7 @@ function DoctorsList() {
                 <th>Experience</th>
                 <th>Available Tokens</th>
                 <th>Department</th>
+                <th>Fee</th>
                 <th>Available</th>
                 <th></th>
               </tr>
@@ -118,9 +120,22 @@ function DoctorsList() {
                   <td>{doc.experience}</td>
                   <td>{doc.tokens}</td>
                   <td>{getDepartmentName(doc.department_id)}</td>
+                  <td>{doc.fee}</td>
                   <td>{doc.is_available ? "Yes" : "No"}</td>
                   <td>
-                    <Dropdown>
+                    {doc.is_available ? (
+                      <Switch
+                        onClick={() => doctorAvailablity(doc.id)}
+                        defaultChecked
+                        color="default"
+                      />
+                    ) : (
+                      <Switch
+                        onClick={() => doctorAvailablity(doc.id)}
+                        color="default"
+                      />
+                    )}
+                    {/* <Dropdown>
                       <Dropdown.Toggle variant="success" id="dropdown-basic">
                         Available or Not
                       </Dropdown.Toggle>
@@ -128,7 +143,7 @@ function DoctorsList() {
                         <Dropdown.Item onClick={() => doctorAvailablity(doc.id)} >Available</Dropdown.Item>
                         <Dropdown.Item onClick={() => doctorAvailablity(doc.id)}>Not Available</Dropdown.Item>
                       </Dropdown.Menu>
-                    </Dropdown>
+                    </Dropdown> */}
                   </td>
                 </tr>
               ))}
@@ -152,7 +167,6 @@ function DoctorsList() {
                       setName(e.target.value);
                     }}
                     placeholder="Doctor Name"
-                    autoFocus
                   />
                 </Form.Group>
                 <Form.Group
@@ -167,7 +181,6 @@ function DoctorsList() {
                       setExperience(e.target.value);
                     }}
                     placeholder="Years Of Experience"
-                    autoFocus
                   />
                 </Form.Group>
 
@@ -175,7 +188,7 @@ function DoctorsList() {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Department</Form.Label>
+                  <Form.Label>Token</Form.Label>
                   <Form.Control
                     type="text"
                     value={tokens}
@@ -183,7 +196,20 @@ function DoctorsList() {
                       setTokens(e.target.value);
                     }}
                     placeholder="Available Tokens"
-                    autoFocus
+                  />
+                </Form.Group>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Doctor Fee</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={fee}
+                    onChange={(e) => {
+                      setFee(e.target.value);
+                    }}
+                    placeholder="Fee"
                   />
                 </Form.Group>
 
@@ -215,7 +241,7 @@ function DoctorsList() {
                 Close
               </Button>
               <Button variant="primary" onClick={addAndclose}>
-                Add Department
+                Add
               </Button>
             </Modal.Footer>
           </Modal>

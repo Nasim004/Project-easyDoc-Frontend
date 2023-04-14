@@ -5,6 +5,8 @@ import UserSignup from './pages/UserSignup';
 import UserLogin from './pages/UserLogin';
 import UserProfile from './pages/UserProfile';
 import Hospitals from './pages/HospitalList';
+import ViewDoctors from './pages/viewDoctors';
+import Booking from './pages/Booking';
 
 
 import HospitalSignup from './pages/HospitalSignup';
@@ -37,6 +39,11 @@ function App() {
           <Route path='signup' element={<UserSignup />} />
           <Route path='login' element={<UserLogin />} />
           <Route path='hospitals' element={<Hospitals />} />
+          <Route path='doctors/:id' element={<ViewDoctors />} />
+
+          <Route element={<RequireAuthLoginUser />} >
+          <Route path='booking/:id' element={<Booking />} />
+          </Route>
 
           <Route element={<RequireAuthLoginUser />}>
             <Route path='myprofile' element={<UserProfile />} />

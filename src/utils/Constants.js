@@ -14,6 +14,10 @@ export const userprofileUpdate="profileupdate"
 export const changepassword ="changepassword"
 export const randomhospitals ='randomhospital'
 export const userhospital ='userhospital'
+export const hospitaldetail ='hospital_detail'
+export const doctordetail ='doctor_detail'
+export const tokenlist = 'token'
+export const bookingdata = 'booking'
 
 // Hospital
 export const hospitalDashboard = 'hospital'

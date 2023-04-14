@@ -20,7 +20,6 @@ function Header() {
     console.log("inside useEffect");
     const token = Cookies.get("jwt_user");
     if (token) {
-      console.log("inside 2");
       axios
         .post(
           verifyToken,
@@ -33,7 +32,6 @@ function Header() {
           console.log(res.data.username);
           console.log(res.data.id);
           dispatch(change(res.data.username));
-          console.log("KKKKK");
         })
         .catch((err) => {
           console.log("Error:", err);

@@ -71,7 +71,7 @@ function HospitalSignup() {
 
   const handleNameChange = (e) => {
     setName(e.target.value);
-    if (!/^[A-Za-z]{4,}$/.test(e.target.value)) {
+    if (!/^[A-Za-z ]{4,}$/.test(e.target.value)) {
       setNameError("Must contain at least 3 letters and no numbers");
     } else {
       setNameError("");
@@ -146,7 +146,7 @@ function HospitalSignup() {
   };
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
-    if (!/^[A-Za-z]{10,}$/.test(e.target.value)) {
+    if (!/^[A-Za-z ]{10,}$/.test(e.target.value)) {
       setDescriptionError("Must contain at least 10 letters and no numbers");
     } else {
       setDescriptionError("");
@@ -154,6 +154,8 @@ function HospitalSignup() {
   };
 
   return (
+
+
     <MDBContainer fluid>
       <form onSubmit={handleSubmit}>
         <MDBCard className="text-black ">
