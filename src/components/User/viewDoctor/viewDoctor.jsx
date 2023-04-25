@@ -4,6 +4,7 @@ import axios from "../../../utils/axios";
 import { hospitaldetail, doctordetail } from "../../../utils/Constants";
 import { useState } from "react";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 function ViewDoctor() {
   const { id } = useParams();
@@ -23,6 +24,10 @@ function ViewDoctor() {
       console.log(response.data);
     });
   };
+
+  const availableSwal =() =>{
+    Swal.fire("Doctor is not avilable")
+  }
 
   useEffect(() => {
     getHospitals();
@@ -69,7 +74,7 @@ function ViewDoctor() {
 
       <div className="container text-left">
         <div className="row">
-          <label className=" text-secondary ">Select Doctors</label>
+          <h5 className=" text-dark">Select Doctors</h5>
         </div>
       </div>
       <div className="row">
@@ -105,13 +110,25 @@ function ViewDoctor() {
                         Fee :{" "}
                         <span className="font-weight-bold"> ₹{doc.fee}</span>{" "}
                       </p>
-
-                      <button
+                      {doc.is_available?(
+                        <button
                         className="btn btn-dark btn-sm"
                         onClick={() => navigate(`/booking/${doc.id}`)}
                       >
                         Take Appointment
                       </button>
+                      ):(
+                        <button
+                        disabled
+                        className="btn btn-dark btn-sm"
+                        onClick={() => availableSwal()}
+                      >
+                        Not Available
+                      </button>
+
+                      )
+                    }
+                      
                     </div>
                   </div>
                 </div>

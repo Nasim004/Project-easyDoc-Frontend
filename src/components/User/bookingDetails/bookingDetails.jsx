@@ -9,12 +9,15 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
 import { Button } from "react-bootstrap";
+import DatePicker from "react-datepicker";
+import moment from "moment";
 
 function BookingDetails() {
   const [name, setName] = useState();
   const [age, setAge] = useState();
   const [phone, setPhone] = useState();
   const [token, setToken] = useState([]);
+  const [bookingtoken, setBookingToken] = useState();
   const [date, setDate] = useState();
   const [address, setAddress] = useState();
   const { id } = useParams();
@@ -24,11 +27,12 @@ function BookingDetails() {
   const tokenList = () => {
     axios.get(`${tokenlist}/${id}`).then((response) => {
       setToken(response.data[0].tokens);
+      console.log(response.data[0].tokens, ")))))");
     });
   };
 
-  function handleToken(token) {
-    setToken(token);
+  function handleToken(t) {
+    setBookingToken(t);
   }
 
   useEffect(() => {
@@ -40,7 +44,7 @@ function BookingDetails() {
       name,
       age,
       phone,
-      token,
+      bookingtoken,
       date,
       address,
       id,
@@ -52,7 +56,7 @@ function BookingDetails() {
       })
       .then((response) => {
         Swal.fire("Booked");
-        navigate("/");
+        navigate("/confirmation");
       });
   };
 
@@ -117,14 +121,15 @@ function BookingDetails() {
                     <label className="form-control-label px-3">Date</label>
                     <input
                       type="date"
-                      id="email"
-                      name="email"
+                      id="date"
+                      name="date"
                       value={date}
                       onChange={(e) => {
                         setDate(e.target.value);
                       }}
+                      min={moment().format("YYYY-MM-DD")}
                       placeholder="Select appointment date"
-                      onblur="validate(3)"
+
                     />
                   </div>
                   <div className="form-group col-sm-4 flex-column d-flex">
@@ -139,7 +144,7 @@ function BookingDetails() {
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
                         {token.map((t) => (
-                          <Dropdown.Item value={t} onClick={handleToken}>
+                          <Dropdown.Item onClick={() => handleToken(t)}>
                             Token {t}
                           </Dropdown.Item>
                         ))}
@@ -168,6 +173,7 @@ function BookingDetails() {
                   <Button
                     type="button"
                     className="btn btn-secondary mt-3 colorgray"
+                    onClick={booking}
                   >
                     Book Now
                   </Button>
@@ -177,6 +183,8 @@ function BookingDetails() {
           </div>
         </div>
       </div>
+
+      
     </>
   );
 }

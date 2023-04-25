@@ -2,9 +2,8 @@ import Cookies from "js-cookie";
 import { Navigate, Outlet } from "react-router-dom";
 
 export const RequireAuthLogin = () => {
-    console.log("Inside Auth Function");
+
     const token = Cookies.get('jwt-admin')
-    console.log(token);
     return (
         token
             ? <Outlet />

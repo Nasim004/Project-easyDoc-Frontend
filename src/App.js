@@ -7,12 +7,15 @@ import UserProfile from './pages/UserProfile';
 import Hospitals from './pages/HospitalList';
 import ViewDoctors from './pages/viewDoctors';
 import Booking from './pages/Booking';
+import Confirmation from './pages/Confirmed';
+
 
 
 import HospitalSignup from './pages/HospitalSignup';
 import HospitalLogin from './pages/HospitalLogin';
 import HospitalPanel from './pages/HospitalPanel';
 import HospitalDoctor from './pages/DoctorHospital'
+import ChatMessage from './pages/Chat';
 
 
 import AdminLogin from './pages/AdminLogin'
@@ -42,7 +45,8 @@ function App() {
           <Route path='doctors/:id' element={<ViewDoctors />} />
 
           <Route element={<RequireAuthLoginUser />} >
-          <Route path='booking/:id' element={<Booking />} />
+            <Route path='booking/:id' element={<Booking />} />
+            <Route path='confirmation' element={<Confirmation />} />
           </Route>
 
           <Route element={<RequireAuthLoginUser />}>
@@ -58,6 +62,8 @@ function App() {
           <Route element={<RequireAuthLoginHospital />} >
             <Route path='hospital/panel' element={<HospitalPanel />} />
             <Route path='hospital/doctor' element={<HospitalDoctor />} />
+            <Route path = 'hospital/messages' element={<ChatMessage/>} />
+
           </Route>
 
           <Route element={<LoginPageRender />}>

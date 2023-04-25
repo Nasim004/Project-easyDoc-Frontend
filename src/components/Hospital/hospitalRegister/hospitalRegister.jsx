@@ -1,20 +1,10 @@
 import React from "react";
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBInput,
-  MDBIcon,
-} from "mdb-react-ui-kit";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../utils/axios";
 import { hospitalSignup } from "../../../utils/Constants";
 import Swal from "sweetalert2";
+import "./hospitalRegister.css";
 function HospitalSignup() {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -154,159 +144,147 @@ function HospitalSignup() {
   };
 
   return (
+    <section className="get-in-touch">
+      <h1 className="title">Register Your Hospital</h1>
+      <form className="contact-form row" onSubmit={handleSubmit}>
+        <div className="form-field col-lg-6">
+          <input
+            id="name"
+            className="input-text js-input"
+            type="text"
+            value={name}
+            onChange={handleNameChange}
+          />
+          <label className="label" for="name">
+            Hospital Name
+          </label>
+          <span className="text-danger">{nameError}</span>
+        </div>
 
+        <div className="form-field col-lg-6 ">
+          <input
+            id="email"
+            className="input-text js-input"
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+          />
+          <label className="label" for="email">
+            Email
+          </label>
+          <span className="text-danger">{emailError}</span>
+        </div>
 
-    <MDBContainer fluid>
-      <form onSubmit={handleSubmit}>
-        <MDBCard className="text-black ">
-          <MDBCardBody>
-            <MDBRow>
-              <MDBCol
-                md="10"
-                lg="6"
-                className="order-2 order-lg-1 d-flex flex-column align-items-center"
-              >
-                <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                  REGISTER YOUR HOSPITAL
-                </p>
+        <div className="form-field col-lg-6 ">
+          <input
+            id="company"
+            className="input-text js-input"
+            type="text"
+            value={username}
+            onChange={handleUserameChange}
+          />
+          <label className="label" for="company">
+            Username
+          </label>
+          <span className="text-danger">{usernameError}</span>
+        </div>
+        <div className="form-field col-lg-6 ">
+          <input
+            id="phone"
+            className="input-text js-input"
+            type="text"
+            value={phone}
+            onChange={handleNumberChange}
+          />
+          <label className="label" for="phone">
+            Contact Number
+          </label>
+          <span className="text-danger">{numberError}</span>
+        </div>
+        <div className="form-field col-lg-6">
+          <input
+            id="message"
+            className="input-text js-input"
+            type="text"
+            value={admin_name}
+            onChange={handleAdminChange}
+          />
+          <label className="label" for="message">
+            Admin
+          </label>
+          <span className="text-danger">{adminError}</span>
+        </div>
+        <div className="form-field col-lg-6 ">
+          <input
+            id="phone"
+            className="input-text js-input"
+            type="text"
+            value={admin_position}
+            onChange={handlePositionChange}
+          />
+          <label className="label" for="phone">
+            Admin Position
+          </label>
+          <span className="text-danger">{positionError}</span>
+        </div>
+        <div className="form-field col-lg-6 ">
+          <input
+            id="phone"
+            className="input-text js-input"
+            type="text"
+            value={muncipality}
+            onChange={handleMuncipalityChange}
+          />
+          <label className="label" for="phone">
+            Municpality
+          </label>
+          <span className="text-danger">{muncipalityError}</span>
+        </div>
+        <div className="form-field col-lg-6 ">
+          <input
+            id="phone"
+            className="input-text js-input"
+            type="text"
+            value={district}
+            onChange={handleDistrictChange}
+          />
+          <label className="label" for="phone">
+            District
+          </label>
+          <span className="text-danger">{districtError}</span>
+        </div>
+        <div className="form-field col-lg-12 ">
+          <input
+            id="phone"
+            className="input-text js-input"
+            type="text"
+            value={description}
+            onChange={handleDescriptionChange}
+          />
+          <label className="label" for="phone">
+            Description About Hospital{" "}
+          </label>
+        </div>
+        <span className="text-danger">{descriptionError}</span>
+        <div className="form-field col-lg-6 ">
+          <input
+            id="phone"
+            className="input-text js-input"
+            type="text"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          <label className="label" for="phone">
+            Password
+          </label>
+          <span className="text-danger">{passwordError}</span>
+        </div>
 
-                <div className="d-flex flex-row align-items-center mb-4 ">
-                  <MDBIcon fas icon=" me-3" size="lg" />
-                  <MDBInput
-                    value={name}
-                    onChange={handleNameChange}
-                    label="Hospital Name"
-                    id="form1"
-                    type="text"
-                    className="w-100"
-                  />
-                </div>
-                <span className="text-danger">{nameError}</span>
-
-                <div className="d-flex flex-row align-items-center mb-4">
-                  <MDBIcon fas icon=" me-3" size="lg" />
-                  <MDBInput
-                    value={email}
-                    onChange={handleEmailChange}
-                    label="Email"
-                    id="form2"
-                    type="email"
-                  />
-                </div>
-                <span className="text-danger">{emailError}</span>
-
-                <div className="d-flex flex-row align-items-center mb-4">
-                  <MDBIcon fas icon=" me-3" size="lg" />
-                  <MDBInput
-                    value={username}
-                    onChange={handleUserameChange}
-                    label="Username"
-                    id="form3"
-                    type="username"
-                  />
-                </div>
-                <span className="text-danger">{usernameError}</span>
-
-                <div className="d-flex flex-row align-items-center mb-4">
-                  <MDBIcon fas icon=" me-3" size="lg" />
-                  <MDBInput
-                    value={admin_name}
-                    onChange={handleAdminChange}
-                    label="Admin Name"
-                    id="form4"
-                    type="text"
-                  />
-                </div>
-                <span className="text-danger">{adminError}</span>
-
-                <div className="d-flex flex-row align-items-center mb-4">
-                  <MDBIcon fas icon=" me-3" size="lg" />
-                  <MDBInput
-                    value={admin_position}
-                    onChange={handlePositionChange}
-                    label="Admin Position"
-                    id="form5"
-                    type="text"
-                  />
-                </div>
-
-                <span className="text-danger">{positionError}</span>
-
-                <div className="d-flex flex-row align-items-center mb-4">
-                  <MDBIcon fas icon=" me-3" size="lg" />
-                  <MDBInput
-                    value={phone}
-                    onChange={handleNumberChange}
-                    label="Contact Number"
-                    id="form6"
-                    type="text"
-                  />
-                </div>
-                <span className="text-danger">{numberError}</span>
-
-                <div className="d-flex flex-row align-items-center mb-4">
-                  <MDBIcon fas icon=" me-3" size="lg" />
-                  <MDBInput
-                    value={district}
-                    onChange={handleDistrictChange}
-                    label=" District"
-                    id="form7"
-                    type="text"
-                  />
-                </div>
-                <span className="text-danger">{districtError}</span>
-                <div className="d-flex flex-row align-items-center mb-4">
-                  <MDBIcon fas icon=" me-3" size="lg" />
-                  <MDBInput
-                    value={muncipality}
-                    onChange={handleMuncipalityChange}
-                    label=" Muncipality"
-                    id="form8"
-                    type="text"
-                  />
-                </div>
-                <span className="text-danger">{muncipalityError}</span>
-
-                <div className="d-flex flex-row align-items-center mb-4">
-                  <MDBIcon fas icon=" me-3" size="lg" />
-                  <MDBInput
-                    label="Description"
-                    value={description}
-                    onChange={handleDescriptionChange}
-                    id="form9"
-                    type="text"
-                  />
-                </div>
-                <span className="text-danger">{descriptionError}</span>
-                <div className="d-flex flex-row align-items-center mb-4">
-                  <MDBIcon fas icon=" me-3" size="lg" />
-                  <MDBInput
-                    value={password}
-                    onChange={handlePasswordChange}
-                    label="Password"
-                    id="form9"
-                    type="password"
-                  />
-                </div>
-                <span className="text-danger">{passwordError}</span>
-
-                <MDBBtn className="mb-4" size="lg">
-                  Register
-                </MDBBtn>
-              </MDBCol>
-
-              <MDBCol
-                md="10"
-                lg="6"
-                className="order-1 order-lg-2 d-flex align-items-center"
-              >
-                <MDBCardImage src="../../../Images/Images 2.jpg" fluid />
-              </MDBCol>
-            </MDBRow>
-          </MDBCardBody>
-        </MDBCard>
+        <div className="form-field col-lg-12">
+          <input className="submit-btn" type="submit" value="register" />
+        </div>
       </form>
-    </MDBContainer>
+    </section>
   );
 }
 
