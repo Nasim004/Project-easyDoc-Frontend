@@ -14,6 +14,7 @@ import { change } from "../../../Redux/usernameReducer";
 import { logout } from "../../../Redux/usernameReducer";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
+
 function Header() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -89,6 +90,9 @@ function Header() {
                 <NavDropdown title="My Account" id="collasible-nav-dropdown">
                   <NavDropdown.Item>
                     <Link to="/myprofile">My Profile</Link>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Link to="/optickets">OP Tickets</Link>
                   </NavDropdown.Item>
                 </NavDropdown>
 

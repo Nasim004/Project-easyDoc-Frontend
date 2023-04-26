@@ -100,44 +100,6 @@ function UserList() {
             />
           </div>
           <DataTable columns={columns} data={records} pagination />
-          {/* <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Sl No</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Is Active</th>
-                <th>Block</th>
-              </tr>
-            </thead>
-            <tbody>
-              {user.map((user, index) => (
-                <tr>
-                  <td>{user.index}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.phone}</td>
-                  <td>{user.is_active ? "True" : "False"}</td>
-                  <td>
-                    {user.is_active ? (
-                      <Switch
-                        onClick={() => user_block(user.id)}
-                        defaultChecked
-                        color="default"
-                      />
-                    ) : (
-                      <Switch
-                        onClick={() => user_block(user.id)}
-                        defaultUnChecked
-                        color="default"
-                      />
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table> */}
         </div>
       </div>
     </div>

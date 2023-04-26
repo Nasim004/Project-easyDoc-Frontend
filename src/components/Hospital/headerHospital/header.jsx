@@ -39,7 +39,9 @@ function Header() {
               </Link>
             </Button>
             <Button variant="outline-dark m-3">
+              <Link to="/hospital/appointments">
               <FaBook /> Bookings
+              </Link>
             </Button>
             <Button variant="outline-dark m-3">
               <Link className="logout" onClick={handleLogout}>

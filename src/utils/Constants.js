@@ -18,7 +18,8 @@ export const hospitaldetail ='hospital_detail'
 export const doctordetail ='doctor_detail'
 export const tokenlist = 'token'
 export const bookingdata = 'booking'
-
+export const opticket = 'optickets'
+ 
 // Hospital
 export const hospitalDashboard = 'hospital'
 export const hospitalSignup = "hospital/signup"
@@ -28,6 +29,7 @@ export const hospitalDepartment = "hospital/department_details"
 export const addDoctor = "hospital/doctor_add"
 export const doctorlist = "hospital/doctor"
 export const doctorAvailable = "hospital/doctor_available"
+export const bookinglist = "hospital/booking_details"
 
 
 
@@ -41,6 +43,7 @@ export const approveHospital = "admin/hospital_approval"
 export const deleteHospital = "admin/hospital_delete"
 export const addDepartment = "admin/department_add"
 export const adminDepartment = "admin/department"
+export const adminDepartments = "admin/departments"
 export const deleteDepartment = "admin/department_delete"
 export const adminUser = "admin/user"
 export const blockUser = "admin/block_user"

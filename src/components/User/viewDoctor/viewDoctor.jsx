@@ -1,7 +1,12 @@
 import "./viewDoctor.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "../../../utils/axios";
-import { hospitaldetail, doctordetail } from "../../../utils/Constants";
+import {
+  hospitaldetail,
+  doctordetail,
+  adminDepartments,
+  adminDepartment,
+} from "../../../utils/Constants";
 import { useState } from "react";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
@@ -10,6 +15,9 @@ function ViewDoctor() {
   const { id } = useParams();
   const [hospital, setHospital] = useState([]);
   const [doctor, setDoctor] = useState([]);
+  const [department, setDepartment] = useState([]);
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+
   const navigate = useNavigate();
 
   const getHospitals = () => {
@@ -18,21 +26,51 @@ function ViewDoctor() {
     });
   };
 
-  const getDoctors = () => {
-    axios.get(`${doctordetail}/${id}`).then((response) => {
-      setDoctor(response.data);
-      console.log(response.data);
+  const getDeparments = () => {
+    axios.get(adminDepartment).then((response) => {
+      setDepartment(response.data);
     });
   };
 
-  const availableSwal =() =>{
-    Swal.fire("Doctor is not avilable")
-  }
+  const getDoctors = () => {
+    axios.get(`${doctordetail}/${id}`).then((response) => {
+      //**************//
+      const doctors = response.data;
+      const promises = doctors.map((doc) => {
+        return axios
+          .get(`${adminDepartments}/${doc.department_id}`)
+          .then((res) => {
+            doc.department_name = res.data.name;
+            return doc;
+          });
+      });
+      Promise.all(promises).then((docWithDept) => {
+        setDoctor(docWithDept);
+      });
+      // setDoctor(response.data);
+      // console.log(response.data);
+    });
+  };
+
+  const availableSwal = () => {
+    Swal.fire("Doctor is not avilable");
+  };
+
+  const handleDepartmentChange = (event) => {
+    setSelectedDepartment(event.target.value);
+  };
+  const filteredDoctors = selectedDepartment
+  ? doctor.filter((doc) => doc.department_name === selectedDepartment)
+  : doctor;
 
   useEffect(() => {
     getHospitals();
     getDoctors();
+    getDeparments();
   }, []);
+
+
+
 
   return (
     <div className="container-fluid">
@@ -56,21 +94,16 @@ function ViewDoctor() {
         </div>
       </div>
 
-      {/* <div className="row mt-3 d-flex justify-content-start">
+      <div className="row mt-3 d-flex justify-content-start">
         <div className="col-md-3">
-          <select className="form-select" aria-label="Filter">
-            <option selected>Filter by</option>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
+          <select className="form-select" aria-label="Filter" value={selectedDepartment} onChange={handleDepartmentChange}>
+            <option selected className="filter-heading">Filter By Department</option>
+            {department.map((dep) => (
+              <option key={dep.id} value={dep.name}>{dep.name}</option>
+            ))}
           </select>
         </div>
-        <div className="col-md-3 ">
-          <button type="button" className="btn btn-primary">
-            Filter
-          </button>
-        </div>
-      </div> */}
+      </div>
 
       <div className="container text-left">
         <div className="row">
@@ -78,7 +111,7 @@ function ViewDoctor() {
         </div>
       </div>
       <div className="row">
-        {doctor.map((doc) => {
+        {filteredDoctors.map((doc) => {
           return (
             <div className="col-md-6">
               <div
@@ -98,7 +131,7 @@ function ViewDoctor() {
                         Name :{" "}
                         <span className="font-weight-bold"> {doc.name}</span>{" "}
                       </p>
-                      <p>Department : {}</p>
+                      <p>Department : {doc.department_name}</p>
                       <p>
                         Experience :
                         <span className="font-weight-bold">
@@ -110,25 +143,22 @@ function ViewDoctor() {
                         Fee :{" "}
                         <span className="font-weight-bold"> ₹{doc.fee}</span>{" "}
                       </p>
-                      {doc.is_available?(
+                      {doc.is_available ? (
                         <button
-                        className="btn btn-dark btn-sm"
-                        onClick={() => navigate(`/booking/${doc.id}`)}
-                      >
-                        Take Appointment
-                      </button>
-                      ):(
+                          className="btn btn-dark btn-sm"
+                          onClick={() => navigate(`/booking/${doc.id}`)}
+                        >
+                          Take Appointment
+                        </button>
+                      ) : (
                         <button
-                        disabled
-                        className="btn btn-dark btn-sm"
-                        onClick={() => availableSwal()}
-                      >
-                        Not Available
-                      </button>
-
-                      )
-                    }
-                      
+                          disabled
+                          className="btn btn-dark btn-sm"
+                          onClick={() => availableSwal()}
+                        >
+                          Not Available
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>

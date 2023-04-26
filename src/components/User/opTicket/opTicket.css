@@ -1,0 +1,15 @@
+.card{
+  background-color: #dddddd!important;
+}
+.card-header{
+  background-color: rgb(255, 255, 255)!important;
+  font-weight: 900;
+}
+
+.card-text{text-align: start;
+
+}
+
+span{
+  font-weight: 900;
+}

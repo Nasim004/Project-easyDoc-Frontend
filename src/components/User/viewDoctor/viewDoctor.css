@@ -24,3 +24,7 @@
 .font-weight-bold {
   font-weight: bold !important;
 }
+.filter-heading{
+  font-weight: bold!important;
+  color: black;
+}

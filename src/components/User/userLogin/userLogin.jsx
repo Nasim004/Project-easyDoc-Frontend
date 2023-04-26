@@ -47,8 +47,8 @@ function UserLogin() {
             showConfirmButton: false,
             timer: 1500,
           });
-          dispatch(change(response.data.payload.email));
           navigate("/");
+          dispatch(change(response.data.payload.email));
         }
       });
   };

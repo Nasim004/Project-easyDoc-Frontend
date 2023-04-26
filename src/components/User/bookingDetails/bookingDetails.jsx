@@ -9,8 +9,8 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
 import { Button } from "react-bootstrap";
-import DatePicker from "react-datepicker";
 import moment from "moment";
+import useRazorpay from "react-razorpay";
 
 function BookingDetails() {
   const [name, setName] = useState();
@@ -20,6 +20,8 @@ function BookingDetails() {
   const [bookingtoken, setBookingToken] = useState();
   const [date, setDate] = useState();
   const [address, setAddress] = useState();
+  const [fee, setFee] = useState();
+  const [transactionId, setTrancationId] = useState();
   const { id } = useParams();
   const user_id = Cookies.get("id");
   const navigate = useNavigate();
@@ -30,6 +32,11 @@ function BookingDetails() {
       console.log(response.data[0].tokens, ")))))");
     });
   };
+  const doctorDetails = () => {
+    axios.get(`${tokenlist}/${id}`).then((response) => {
+      setFee(response.data[0].fee);
+    });
+  };
 
   function handleToken(t) {
     setBookingToken(t);
@@ -37,7 +44,57 @@ function BookingDetails() {
 
   useEffect(() => {
     tokenList();
+    doctorDetails();
   }, []);
+
+  const Razorpay = useRazorpay();
+  const amount = fee;
+  const handlePayment = () => {
+    const options = {
+      key: "rzp_test_xn7GLnYrhQV1kd",
+      amount: amount * 100,
+      currency: "INR",
+      name: "easyDoc",
+      description: "Booking Transaction",
+      image: "https://example.com/your_logo",
+      handler: function (response) {
+        if (response.razorpay_payment_id) {
+          // setTrancationId(response.razorpay_payment_id);
+          booking();
+        } else {
+          alert(response.error.code);
+          alert(response.error.description);
+          alert(response.error.source);
+          alert(response.error.step);
+          alert(response.error.reason);
+          alert(response.error.metadata.order_id);
+          alert(response.error.metadata.payment_id);
+        }
+      },
+      prefill: {
+        name: "Piyush Garg",
+        email: "youremail@example.com",
+        contact: "9999999999",
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+    const rzp1 = new Razorpay(options);
+    rzp1.on("payment.failed", function (response) {
+      alert(response.error.code);
+      alert(response.error.description);
+      alert(response.error.source);
+      alert(response.error.step);
+      alert(response.error.reason);
+      alert(response.error.metadata.order_id);
+      alert(response.error.metadata.payment_id);
+    });
+    rzp1.open();
+  };
 
   const booking = () => {
     const data = JSON.stringify({
@@ -129,7 +186,6 @@ function BookingDetails() {
                       }}
                       min={moment().format("YYYY-MM-DD")}
                       placeholder="Select appointment date"
-
                     />
                   </div>
                   <div className="form-group col-sm-4 flex-column d-flex">
@@ -173,7 +229,7 @@ function BookingDetails() {
                   <Button
                     type="button"
                     className="btn btn-secondary mt-3 colorgray"
-                    onClick={booking}
+                    onClick={handlePayment}
                   >
                     Book Now
                   </Button>
@@ -183,8 +239,6 @@ function BookingDetails() {
           </div>
         </div>
       </div>
-
-      
     </>
   );
 }

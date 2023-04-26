@@ -52,11 +52,6 @@ function Header() {
               </Button>
             </Link>
 
-            <Link>
-              <Button variant="outline-dark m-3">
-                <FaBell /> Notification
-              </Button>
-            </Link>
 
             <Link to='#' className="logout" onClick={handleLogout}>
               <Button variant="outline-dark m-3">Logout</Button>
