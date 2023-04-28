@@ -28,3 +28,12 @@
     
 }
 
+.homename{
+    text-decoration: none!important;
+    color: black;
+
+}
+.homename:hover{
+    text-decoration: none!important;
+    color: black;
+}

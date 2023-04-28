@@ -4,7 +4,7 @@ import { GoLocation } from "react-icons/go";
 import axios from "../../../utils/axios";
 import { userhospital } from "../../../utils/Constants";
 import { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   CCard,
   CRow,
@@ -84,3 +84,4 @@ export default function HospitalList() {
     </div>
   );
 }
+

@@ -99,7 +99,7 @@ function ViewDoctor() {
           <select className="form-select" aria-label="Filter" value={selectedDepartment} onChange={handleDepartmentChange}>
             <option selected className="filter-heading">Filter By Department</option>
             {department.map((dep) => (
-              <option key={dep.id} value={dep.name}>{dep.name}</option>
+              <option key={dep.id} value={dep.name} >{dep.name}</option>
             ))}
           </select>
         </div>
@@ -172,3 +172,6 @@ function ViewDoctor() {
 }
 
 export default ViewDoctor;
+
+
+

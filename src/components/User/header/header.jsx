@@ -56,7 +56,7 @@ function Header() {
     <Navbar className="navbar">
       <Container>
         <Navbar.Brand className="easydoc" style={{ fontSize: 30 }} href="#home">
-          easyDoc
+          <Link to='/' className="homename">easyDoc</Link>
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
