@@ -1,7 +1,7 @@
 
 
-export const baseUrl = "http://localhost:8000/";
-// export const baseUrl = "http://3.80.116.89/";
+// export const baseUrl = "http://localhost:8000/";
+export const baseUrl = "http://3.80.116.89/";
 
 
 
