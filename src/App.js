@@ -1,5 +1,6 @@
 
 import './App.css';
+import PageNotFound from './pages/PageNotFound';
 import HomePage from './pages/Home'
 import UserSignup from './pages/UserSignup';
 import UserLogin from './pages/UserLogin';
@@ -40,6 +41,8 @@ function App() {
     <div className='App'>
       <Router>
         <Routes>
+
+          <Route path='*' element={<PageNotFound />} />
           <Route path='/' element={<HomePage />} />
           <Route path='signup' element={<UserSignup />} />
           <Route path='login' element={<UserLogin />} />

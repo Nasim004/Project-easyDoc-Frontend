@@ -231,7 +231,7 @@ function BookingDetails() {
                     className="btn btn-secondary mt-3 colorgray"
                     onClick={handlePayment}
                   >
-                    Book Now
+                    Pay & Book 
                   </Button>
                 </div>
               </form>
