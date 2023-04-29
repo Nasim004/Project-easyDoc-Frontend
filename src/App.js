@@ -58,9 +58,9 @@ function App() {
 
 
 
-          <Route element={<LoginPageRenderHospital />}>
-            <Route path='hospital/login' element={<HospitalLogin />} />
-          </Route>
+          {/* <Route element={<LoginPageRenderHospital />}> */}
+          <Route path='hospital/login' element={<HospitalLogin />} />
+          {/* </Route> */}
           <Route path='hospital/signup' element={<HospitalSignup />} />
 
           <Route element={<RequireAuthLoginHospital />} >

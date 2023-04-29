@@ -7,13 +7,13 @@ function HomePage() {
     return (
 
         <>
-            <div>
-                <Header />
-                <HomeBanner />
-            </div>
-            <div>
-                <HospitalCard />
-            </div>
+
+            <Header />
+            <HomeBanner />
+            <HospitalCard />
+
+
+
         </>
 
     )
