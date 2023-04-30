@@ -56,7 +56,7 @@ function UserSignup() {
   const handleNameChange = (e) => {
     setName(e.target.value);
     if (!/^[A-Za-z]{3,}$/.test(e.target.value)) {
-      setNameError("Must contain at least 3 letters and no numbers");
+      setNameError("Must contain at least 3 letters and letters only");
     } else {
       setNameError("");
     }
