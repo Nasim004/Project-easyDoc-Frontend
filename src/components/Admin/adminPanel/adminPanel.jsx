@@ -34,9 +34,6 @@ function AdminDashboard() {
                 <i className="fa fa-hospital f-left"></i>
                 <span>{hospital}</span>
               </h2>
-              {/* <p className="m-b-0">
-                Completed Orders<span className="f-right">351</span>
-              </p> */}
             </div>
           </div>
         </div>

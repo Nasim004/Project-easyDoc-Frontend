@@ -5,7 +5,7 @@ import { change } from "../../../Redux/emailReducer";
 import { adminLogin } from "../../../utils/Constants";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -26,32 +26,17 @@ function AdminLogin() {
       .then((response) => {
         if (
           response.data.status === "Wrong Password" ||
-          response.data.status === "Email is not found"
+          response.data.status === "Email is not found" ||
+          response.data.status === "Not A Admin Account"
         ) {
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Email or Password is incorrect",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        } else if (response.data.status === "Not A Admin Account") {
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Not a Admin Account",
-            showConfirmButton: false,
-            timer: 1500,
+          toast.error("Authentication Failed", {
+            autoClose: 20000,
           });
         } else {
           Cookies.set("jwt-admin", String(response.data.jwt));
           Cookies.set("role", String(response.data.role));
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Login Successfully",
-            showConfirmButton: false,
-            timer: 500,
+          toast.success("Logged Succesfully", {
+            autoClose: 20000,
           });
           dispatch(change(response.data.payload.email));
           navigate("/admin/panel");

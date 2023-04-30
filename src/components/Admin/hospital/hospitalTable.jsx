@@ -1,6 +1,5 @@
 import axios from "../../../utils/axios";
 import { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import {
@@ -11,6 +10,7 @@ import {
 import Swal from "sweetalert2";
 import Switch from "@material-ui/core/Switch";
 import DataTable from "react-data-table-component";
+import toast from "react-hot-toast";
 
 function HospitalList() {
   const [hospital, setHospital] = useState([]);
@@ -40,7 +40,9 @@ function HospitalList() {
       .put(`${approveHospital}/${id}`)
       .then((response) => {
         getHospitallist();
-        Swal.fire("Is_approved Updated");
+        toast.success("Updated", {
+          autoClose: 20000,
+        });
       })
       .catch((e) => {
         console.log("error");
@@ -63,11 +65,14 @@ function HospitalList() {
           .then((res) => {
             getHospitallist();
 
-            Swal.fire("Deleted!", "Hospital has been deleted.", "success");
+            toast.success("Deleted", {
+              autoClose: 20000,
+            });
           })
           .catch((err) => {
-            Swal.fire("Not Deleted!");
-            console.log(err);
+            toast.error("Not Deleted", {
+              autoClose: 20000,
+            });
           });
       }
     });
@@ -124,8 +129,8 @@ function HospitalList() {
       ),
     },
   ];
-  function handleFilter(e){
-    const newData = records.filter((row)=>{
+  function handleFilter(e) {
+    const newData = records.filter((row) => {
       return row.name.toLowerCase().includes(e.target.value.toLowerCase());
     });
     setRecords(newData);
@@ -135,7 +140,7 @@ function HospitalList() {
     <div className="container-fluid mt-5">
       <div className="row">
         <div className="col-md-10">
-        <div className="text-end">
+          <div className="text-end">
             <input
               type="text"
               placeholder="Search Hospital"

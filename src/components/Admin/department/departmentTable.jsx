@@ -17,7 +17,6 @@ function DepartmentList() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [department, setDepartment] = useState([]);
 
