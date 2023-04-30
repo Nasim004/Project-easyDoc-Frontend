@@ -11,6 +11,7 @@ import {
 } from "../../../utils/Constants";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 function DepartmentList() {
   const [show, setShow] = useState(false);
@@ -39,12 +40,15 @@ function DepartmentList() {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        Swal.fire("Department Added");
+        toast(response.data, {
+          autoClose: 40000,
+        });
         getDepartmentList();
-        // navigate("");
       })
       .catch((err) => {
-        Swal.fire(Response.status);
+        toast(err.data, {
+          autoClose: 40000,
+        });
       });
   };
 
@@ -63,10 +67,14 @@ function DepartmentList() {
           .delete(`${deleteDepartment}/${id}`)
           .then((res) => {
             getDepartmentList();
-            Swal.fire("Deleted", "Department has been deleted", "Success");
+            toast.success("Deleted", {
+              autoClose: 40000,
+            });
           })
           .catch((err) => {
-            Swal.fire("Not Deleted");
+            toast.error("Not Deleted", {
+              autoClose: 40000,
+            });
           });
       }
     });

@@ -4,9 +4,10 @@ import axios from "../../../utils/axios";
 import { useDispatch } from "react-redux";
 import { change } from "../../../Redux/emailReducer";
 import Cookies from "js-cookie";
-import Swal from "sweetalert2";
 import "./userLogin.css";
 import { userLogin } from "../../../utils/Constants";
+import toast from "react-hot-toast";
+
 
 function UserLogin() {
   const [email, setEmail] = useState("");
@@ -29,23 +30,15 @@ function UserLogin() {
           response.data.status === "Wrong Password" ||
           response.data.status === "Email is not found"
         ) {
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Email or Password is incorrect",
-            showConfirmButton: false,
-            timer: 1500,
+          toast.error("Email or Password is incorrect.", {
+            autoClose: 20000,
           });
         } else {
           Cookies.set("jwt_user", String(response.data.jwt));
           Cookies.set("role", String(response.data.role));
           Cookies.set("id", String(response.data.id));
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Login Successfully",
-            showConfirmButton: false,
-            timer: 1500,
+          toast.success("Logged Successfully", {
+            autoClose: 30000,
           });
           navigate("/");
           dispatch(change(response.data.payload.email));

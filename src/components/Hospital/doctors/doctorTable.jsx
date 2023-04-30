@@ -2,7 +2,7 @@ import { Table, Form, Button } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useEffect, useState } from "react";
 import axios from "../../../utils/axios";
-import {} from "../../../utils/Constants";
+import { adminDepartments } from "../../../utils/Constants";
 import Swal from "sweetalert2";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Modal from "react-bootstrap/Modal";
@@ -14,6 +14,9 @@ import {
   doctorAvailable,
 } from "../../../utils/Constants";
 import Switch from "@material-ui/core/Switch";
+import toast from "react-hot-toast";
+import './doctorTable.css'; 
+
 
 function DoctorsList() {
   const [show, setShow] = useState(false);
@@ -25,20 +28,30 @@ function DoctorsList() {
   const [doctor, setDoctor] = useState([]);
   const [department_id, setDepartmentId] = useState("");
   const [tokens, setTokens] = useState("");
-  const [fee,setFee] = useState("");
+  const [fee, setFee] = useState("");
   const [departments, setDepartments] = useState([]);
 
   const hospital_id = Cookies.get("hospital_id");
 
   const addAndclose = () => {
-
     doctor_add();
-    DoctorList();
     handleClose();
-
   };
 
   const doctor_add = (e) => {
+    if (
+      !name ||
+      !experience ||
+      !tokens ||
+      !hospital_id ||
+      !department_id ||
+      !fee
+    ) {
+      toast.error("Doctor Not Added ,Fill All details", {
+        autoClose: 40000,
+      });
+    }
+
     const data = JSON.stringify({
       name,
       experience,
@@ -52,14 +65,11 @@ function DoctorsList() {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        Swal.fire("Doctor Added");
+        toast.success("Doctor Added", {
+          autoClose: 40000,
+        });
       });
   };
-
-  useEffect(() => {
-    getDepartmentList();
-    DoctorList();
-  }, []);
 
   const getDepartmentList = () => {
     axios.get(adminDepartment).then((response) => {
@@ -73,21 +83,34 @@ function DoctorsList() {
 
   const DoctorList = () => {
     axios.get(`${doctorlist}/${hospital_id}`).then((response) => {
-      setDoctor(response.data);
+      const doctors = response.data;
+      const promises = doctors.map((doct) => {
+        return axios
+          .get(`${adminDepartments}/${doct.department_id}`)
+          .then((res) => {
+            doct.department_name = res.data.name;
+            return doct;
+          });
+      });
+      Promise.all(promises).then((doctWithDept) => {
+        setDoctor(doctWithDept);
+      });
     });
-  };
-
-  const getDepartmentName = (departmentId) => {
-    const department = departments.find((dep) => dep.id === departmentId);
-    return department ? department.name : "Unknown";
   };
 
   const doctorAvailablity = (id) => {
     axios.put(`${doctorAvailable}/${id}`).then((response) => {
       DoctorList();
-      Swal.fire("Updated");
+      toast.success("Availablity Updated", {
+        autoClose: 40000,
+      });
     });
   };
+
+  useEffect(() => {
+    getDepartmentList();
+    DoctorList();
+  }, []);
 
   return (
     <div className="container-fluid m-5">
@@ -118,8 +141,8 @@ function DoctorsList() {
                   <td>{index + 1}</td>
                   <td>{doc.name}</td>
                   <td>{doc.experience}</td>
-                  <td>{doc.tokens}</td>
-                  <td>{getDepartmentName(doc.department_id)}</td>
+                  <td>{doc.tokens.join(", ")}</td>
+                  <td>{doc.department_name}</td>
                   <td>{doc.fee}</td>
                   <td>{doc.is_available ? "Yes" : "No"}</td>
                   <td>
@@ -135,15 +158,6 @@ function DoctorsList() {
                         color="default"
                       />
                     )}
-                    {/* <Dropdown>
-                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        Available or Not
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        <Dropdown.Item onClick={() => doctorAvailablity(doc.id)} >Available</Dropdown.Item>
-                        <Dropdown.Item onClick={() => doctorAvailablity(doc.id)}>Not Available</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown> */}
                   </td>
                 </tr>
               ))}
@@ -159,28 +173,28 @@ function DoctorsList() {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control
+                  <Form.Label className="modalheading">Name</Form.Label>
+                  <Form.Control className="modalsubheading"
                     type="text"
                     value={name}
                     onChange={(e) => {
                       setName(e.target.value);
                     }}
-                    placeholder="Doctor Name"
+                    placeholder="Eg:Xavier"
                   />
                 </Form.Group>
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Experience</Form.Label>
-                  <Form.Control
+                  <Form.Label className="modalheading">Experience</Form.Label>
+                  <Form.Control className="modalsubheading"
                     type="number"
                     value={experience}
                     onChange={(e) => {
                       setExperience(e.target.value);
                     }}
-                    placeholder="Years Of Experience"
+                    placeholder="Eg:2"
                   />
                 </Form.Group>
 
@@ -188,28 +202,28 @@ function DoctorsList() {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Token</Form.Label>
-                  <Form.Control
+                  <Form.Label className="modalheading">Token</Form.Label>
+                  <Form.Control className="modalsubheading"
                     type="text"
                     value={tokens}
                     onChange={(e) => {
                       setTokens(e.target.value);
                     }}
-                    placeholder="Available Tokens"
+                    placeholder="Eg : 1,2,3,4"
                   />
                 </Form.Group>
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Doctor Fee</Form.Label>
-                  <Form.Control
+                  <Form.Label className="modalheading">Doctor Fee</Form.Label>
+                  <Form.Control className="modalsubheading"
                     type="text"
                     value={fee}
                     onChange={(e) => {
                       setFee(e.target.value);
                     }}
-                    placeholder="Fee"
+                    placeholder="Eg: 200"
                   />
                 </Form.Group>
 

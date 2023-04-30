@@ -1,12 +1,9 @@
 import axios from "../../../utils/axios";
 import { useEffect, useState } from "react";
-// import { Table } from "react-bootstrap";
-// import Dropdown from "react-bootstrap/Dropdown";
-
 import { adminUser, blockUser } from "../../../utils/Constants";
-import Swal from "sweetalert2";
 import Switch from "@material-ui/core/Switch";
 import DataTable from "react-data-table-component";
+import toast from "react-hot-toast";
 
 function UserList() {
   const [user, setUser] = useState([]);
@@ -43,10 +40,14 @@ function UserList() {
       .put(`${blockUser}/${id}`)
       .then((response) => {
         getUserList();
-        Swal.fire("Updated");
+        toast.success("Updated", {
+          autoClose: 40000,
+        });
       })
       .catch((e) => {
-        console.log("error");
+        toast.success("Not Updated", {
+          autoClose: 40000,
+        });
       });
   };
 
@@ -77,13 +78,13 @@ function UserList() {
       name: "Block/Unblock",
       cell: (row) =>
         row.blocked === "True" ? (
+          <Switch onClick={() => user_block(row.id)} color="default" />
+        ) : (
           <Switch
             onClick={() => user_block(row.id)}
-            defaultChecked
             color="default"
+            defaultChecked
           />
-        ) : (
-          <Switch onClick={() => user_block(row.id)} color="default" />
         ),
     },
   ];

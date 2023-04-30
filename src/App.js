@@ -28,7 +28,7 @@ import AdminUser from './pages/AdminUser'
 import OpTickets from './pages/OpTickets';
 
 
-
+import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { RequireAuthLogin, LoginPageRender, RequireAuthLoginHospital, LoginPageRenderHospital, RequireAuthLoginUser } from './utils/RequireAuthAdminLogin';
@@ -39,6 +39,7 @@ import { RequireAuthLogin, LoginPageRender, RequireAuthLoginHospital, LoginPageR
 function App() {
   return (
     <div className='App'>
+      <Toaster/>
       <Router>
         <Routes>
 
@@ -58,9 +59,9 @@ function App() {
 
 
 
-          {/* <Route element={<LoginPageRenderHospital />}> */}
+          <Route element={<LoginPageRenderHospital />}>
           <Route path='hospital/login' element={<HospitalLogin />} />
-          {/* </Route> */}
+          </Route>
           <Route path='hospital/signup' element={<HospitalSignup />} />
 
           <Route element={<RequireAuthLoginHospital />} >

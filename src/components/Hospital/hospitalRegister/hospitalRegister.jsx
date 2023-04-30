@@ -3,8 +3,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../utils/axios";
 import { hospitalSignup } from "../../../utils/Constants";
-import Swal from "sweetalert2";
 import "./hospitalRegister.css";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
+
 function HospitalSignup() {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -29,7 +31,41 @@ function HospitalSignup() {
 
   const navigate = useNavigate();
 
+
+
   const handleSubmit = (e) => {
+    if (
+      nameError ||
+      emailError ||
+      numberError ||
+      passwordError ||
+      muncipalityError ||
+      descriptionError ||
+      districtError ||
+      adminError ||
+      positionError
+    ) {
+      toast.error("Please fix details correctly.", {
+        autoClose: 20000,
+      });
+      return;
+    }
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      !password ||
+      !district ||
+      !muncipality ||
+      !description ||
+      !admin_name ||
+      !admin_position
+    ) {
+      toast.error("Please fill all the required fields.", {
+        autoClose: 20000,
+      });
+      return;
+    }
     const data = JSON.stringify({
       name,
       username,
@@ -48,13 +84,11 @@ function HospitalSignup() {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Registered Successfully",
-          showConfirmButton: false,
-          timer: 1000,
+
+        toast.success("Registered succesfully.You can login when admin approve your account", {
+          autoClose: 40000,
         });
+
         navigate("/hospital/login");
       });
   };
@@ -70,7 +104,7 @@ function HospitalSignup() {
   const handleUserameChange = (e) => {
     setUsername(e.target.value);
     if (!/^[A-Za-z][A-Za-z0-9_]{4,10}$/.test(e.target.value)) {
-      setUsernameError("Must contain at least 4 letter");
+      setUsernameError("Must min 4 and max 10 letter");
     } else {
       setUsernameError("");
     }

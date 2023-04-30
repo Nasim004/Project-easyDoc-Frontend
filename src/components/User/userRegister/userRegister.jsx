@@ -4,22 +4,36 @@ import { userSignup } from "../../../utils/Constants";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../utils/axios";
 import "./userRegister.css";
+import toast from "react-hot-toast";
 
 function UserSignup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [district, setDistrict] = useState("");
   const [password, setPassword] = useState("");
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
-  const [muncipality, setMuncipality] = useState("");
   const [numberError, setNumberError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
+
+    if (nameError || emailError || numberError || passwordError) {
+      toast.error("Please fix details correctly.", {
+        autoClose: 20000,
+      });
+      return;
+    }
+
+    if (!name || !email || !phone || !password) {
+      toast.error("Please fill all the required fields.", {
+        autoClose: 20000,
+      })
+      return;
+    }
+
     const data = JSON.stringify({
       name,
       email,
@@ -32,7 +46,9 @@ function UserSignup() {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        console.log(response.status);
+        toast.error(response.data, {
+          autoClose: 40000,
+        });
         navigate("/login");
       });
   };
@@ -139,16 +155,3 @@ function UserSignup() {
 }
 
 export default UserSignup;
-
-
-
-
-
-
-
-
-
-
-
-
-

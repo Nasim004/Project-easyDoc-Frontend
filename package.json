@@ -38,6 +38,7 @@
     "react-data-table-component": "^7.5.3",
     "react-datepicker": "^4.11.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-icons": "^4.7.1",
     "react-razorpay": "^1.2.0",
     "react-redux": "^8.0.5",
