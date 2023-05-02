@@ -29,7 +29,6 @@ function BookingDetails() {
   const tokenList = () => {
     axios.get(`${tokenlist}/${id}`).then((response) => {
       setToken(response.data[0].tokens);
-      console.log(response.data[0].tokens, ")))))");
     });
   };
   const doctorDetails = () => {
