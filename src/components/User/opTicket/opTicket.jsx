@@ -50,7 +50,7 @@ function OpTicket() {
                 Age : <span>{t.age} </span>
               </p>
               <p className="card-text">
-                Token :<span> {t.age}</span>
+                Token :<span> {t.token}</span>
               </p>
               <p className="card-text">
                 Date : <span>{t.date} </span>

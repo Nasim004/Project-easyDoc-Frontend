@@ -8,25 +8,6 @@ function Confirmed() {
 
   return (
     <>
-      {/* <div className="container">
-        <div className="bookingImage m-5  col-md-12 text-center">
-          <img src="../../../Images/confirmed.png" />
-        </div>
-
-        <div className=" col-md-12 text-center">
-          <h1>Your Appointment Is Confimed</h1>
-        </div>
-        <div className=" col-md-12 text-center">
-          <Link to="/">Download OP Ticket</Link>
-        </div>
-
-        <div className=" col-md-12 text-center">
-          <Button onClick={() => navigate(`/`)} className="mt-1">
-            Back To Home
-          </Button>
-        </div>
-      </div> */}
-
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-12 mt-3">
@@ -43,7 +24,7 @@ function Confirmed() {
         </div>
         <div className="row">
           <div className="col-md-12">
-            <Link to="/" className="text-center">
+            <Link to="/optickets" className="text-center">
               Download OP Ticket
             </Link>
           </div>
